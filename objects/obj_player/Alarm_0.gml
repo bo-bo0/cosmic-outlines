@@ -1,0 +1,1 @@
+jump_try = false //disble jump try after a while in the air
