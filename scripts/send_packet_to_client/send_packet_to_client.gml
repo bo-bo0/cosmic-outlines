@@ -1,12 +1,15 @@
-// Gli asset per gli script sono cambiati per la versione 2.3.0; si rimanda a
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 per maggiori informazioni
-function send_packet(buffer,buffer_data_type,socket){
+function send_packet_to_client(buffer,buffer_data_type,socket){
 
 		buffer_seek(buffer,buffer_seek_start,0); //set pointer to start of buffer
+		
+		buffer_write(buffer,buffer_data_type,self.connected_clients); //tells clients how many clients there are
 		
 		buffer_send_player(buffer);
 		
 		//send movement
+		
+		buffer_write(buffer,buffer_data_type,obj_player.x); //send x position
+		buffer_write(buffer,buffer_data_type,obj_player.y); //send y position
 		
 		buffer_write(buffer,buffer_data_type,obj_player.current_speed); //send player current speed
 		
@@ -22,6 +25,5 @@ function send_packet(buffer,buffer_data_type,socket){
 		
 		
 		network_send_packet(socket,buffer,buffer_get_size(buffer)); //send buffer as a packet
-	
 
 }

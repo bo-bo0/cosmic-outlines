@@ -20,8 +20,9 @@
 		buffer_client_got_socket = ds_map_find_value(async_load,"socket");
 		
 		
-		receive_packet(buffer_client_got,buffer_client_got_socket);
+		receive_packet_from_server(buffer_client_got,buffer_client_got_socket);
 		
+				
 	}
 
 

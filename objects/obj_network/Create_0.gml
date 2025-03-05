@@ -1,13 +1,10 @@
-buffer_data_type = buffer_f16; 
-
-already_player_created = false;
-
+buffer_data_type = buffer_f32; //huge buffer for better precision with coordinates
 
 //server variables
 
 port = 50326;
 
-max_clients = 1;
+max_clients = 2;
 
 connected_clients = 0;
 
@@ -17,9 +14,9 @@ socket_type = network_socket_tcp;
 
 server_socket = -1;
 
-	//test server variables
-	
-	socket_connected = 0;
+current_server_target_socket_index = 0;
+
+
 
 	//server buffer variables
 	
@@ -32,8 +29,6 @@ server_socket = -1;
 	server_buffer_alignment = 2;
 	
 	
-
-	
 	
 	//server message got variables
 	
@@ -41,7 +36,20 @@ server_socket = -1;
 	
 	buffer_server_got_type = 0;
 	
-	buffer_server_got_socket = 0;
+	
+	//initialize list of connected clients
+	buffer_server_got_socket = ds_list_create();
+	
+	//list to store in which clients the server player is already created
+server_already_player_created = ds_list_create(); 
+	
+client_already_player_created = ds_list_create();
+
+
+
+
+
+
 
 //client variables
 
@@ -66,3 +74,4 @@ client_socket = -1;
 	
 		//of course this will always be the server socket, this is only needed for compatibility
 	buffer_client_got_socket = 0; 
+	
