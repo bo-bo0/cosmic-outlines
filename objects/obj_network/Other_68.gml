@@ -1,19 +1,28 @@
-var _id = async_load[? "id"];
-var type = async_load[? "type"];
+//data reception 
 
-// Se siamo il server e qualcuno si connette
-if (is_host && type == network_type_connect) {
-    show_message("Un client si è connesso!");
-	instance_create_layer(0,0,"Instances",obj_player)
-}
+	//server reception
+	if (is_server) {
+	
+		buffer_server_got_type = ds_map_find_value(async_load,"type");
+	
+		server_data_reception(buffer_server_got_type);
+	
+	}
 
-// Se riceviamo dati
-if (type == network_type_data) {
-    var data = async_load[? "data"];
-    show_debug_message("Messaggio ricevuto: " + string(data));
-}
 
-// Se siamo il client, inviamo un messaggio al server dopo la connessione
-if (is_client && type == network_type_connect) {
-    network_send_packet(connection, "Ciao server!", network_socket_tcp);
-}
+	//client reception
+	
+	else if (is_client) { 
+		
+		buffer_client_got = ds_map_find_value(async_load,"buffer");
+		
+			//of course this will always be the server socket, this is only needed for compatibility
+		buffer_client_got_socket = ds_map_find_value(async_load,"socket");
+		
+		
+		receive_packet(buffer_client_got,buffer_client_got_socket);
+		
+	}
+
+
+
