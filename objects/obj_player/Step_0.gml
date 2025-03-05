@@ -61,3 +61,4 @@ if (jump_try and place_meeting(x,y+1,par_block))
 
 //debug
 
+debug_key(player_online_id,"R");

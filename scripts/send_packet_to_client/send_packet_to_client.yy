@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"receive_packet",
+  "%Name":"send_packet_to_client",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"receive_packet",
+  "name":"send_packet_to_client",
   "parent":{
     "name":"networking",
     "path":"folders/Scripts/networking.yy",

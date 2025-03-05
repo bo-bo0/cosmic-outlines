@@ -23,7 +23,7 @@ jump_spd = max_jump_spd;
 
 jump_try = false;
 
-player_on_id = 0;
+player_online_id = 0; //networking
 
 
 /////animate jump arguments

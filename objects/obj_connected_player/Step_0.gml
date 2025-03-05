@@ -1,9 +1,5 @@
 // Inherit the parent event
 event_inherited();
-
-
-x += current_speed;	//move player
-
 //walk animation
 
 if (place_meeting(x, y  + fallspd, par_block)) //make it only work if player is touching ground
