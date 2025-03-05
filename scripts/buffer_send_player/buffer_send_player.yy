@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"buffer_send_player",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"buffer_send_player",
+  "parent":{
+    "name":"networking",
+    "path":"folders/Scripts/networking.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

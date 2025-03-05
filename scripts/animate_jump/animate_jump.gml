@@ -28,10 +28,11 @@ function animate_jump(right_sprite, left_sprite, right_sprite_animated, left_spr
 	//change direction while jumping
 	
 	if(self.current_speed > 0)
-		sprite_index = spr_player_jumpRight;
+		sprite_index = right_sprite_jump;
 		
 	else if(self.current_speed < 0)
-		sprite_index = spr_player_jumpLeft;
+		sprite_index = left_sprite_jump;
+	
+
 	
 }
-
