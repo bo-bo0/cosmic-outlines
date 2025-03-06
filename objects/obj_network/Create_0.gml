@@ -4,7 +4,7 @@ buffer_data_type = buffer_f32; //huge buffer for better precision with coordinat
 
 port = 50326;
 
-max_clients = 2;
+max_clients = 3;
 
 connected_clients = 0;
 
