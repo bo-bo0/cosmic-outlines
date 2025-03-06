@@ -17,19 +17,21 @@ function receive_packet_from_client(buffer,socket){
 	
 	
 	//create new player
-	if(ds_list_find_value(client_already_player_created,client_id) == false) {
+	
+	var list_id = client_id - 1; //id to use for list of clients state (since client ids start from 1 but list ids start from 0)
+	
+	if(ds_list_find_value(client_already_player_created,list_id) == false) {
 		
-			ds_list_insert(client_already_player_created,client_id,true);
+		
+			//show_debug_message(client_id);
 			
+			ds_list_insert(client_already_player_created,list_id,true);
 			var new_player = instance_create_layer(obj_player.x,obj_player.y,"Instances",obj_connected_player);
 			new_player.player_online_id = client_id;
-				//show_debug_message(client_id);
+			
 		}
 	
 	//verify which connected player is being changed
-	
-	
-	show_debug_message(string_concat("client_id: ",client_id));
 	
 	for(var i = 0; i < self.connected_clients; i++){
 		
@@ -40,8 +42,6 @@ function receive_packet_from_client(buffer,socket){
 			if(current_client.player_online_id == client_id) {
 				
 				current_index = current_client.player_online_id;
-				show_debug_message(string_concat("current_index: ",current_index));
-				
 				
 				break;
 			}
@@ -51,21 +51,21 @@ function receive_packet_from_client(buffer,socket){
 	if current_client != noone {
 		
 		
-	
-		with(current_client) {
+	//all of the following actions will only be executed on the client that is currently sending data
+		with(current_client) { 
 	
 		//movement of connected player
 		
 	 
 		 current_message = buffer_read(buffer,obj_network.buffer_data_type);
-		 obj_connected_player.x = current_message; //set the x position
+		 x = current_message; //set the x position
 	 
 		 current_message = buffer_read(buffer,obj_network.buffer_data_type);
-		 obj_connected_player.y = current_message; //set the y position
+		 y = current_message; //set the y position
 	 
 		current_message = buffer_read(buffer,obj_network.buffer_data_type); //gets player speed in the first bits
 	
-		obj_connected_player.current_speed = current_message;
+		current_speed = current_message;
 	
 		//player jump
 		current_message = buffer_read(buffer,obj_network.buffer_data_type);
