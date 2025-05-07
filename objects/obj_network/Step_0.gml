@@ -33,6 +33,14 @@
 	//client sending
 	else if (is_client) 
 		send_packet_to_server(client_buffer,buffer_data_type,client_socket);
+	
+
+//debug
+	
+ip = keyboard_string;	
+
+
+	
 		
 		
 		

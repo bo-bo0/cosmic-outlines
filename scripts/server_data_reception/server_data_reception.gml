@@ -16,8 +16,6 @@ function server_data_reception(buffer_type){
 				
 				self.connected_clients++;
 				
-				
-				
 				 //save client socket in the list		
 				ds_list_add(self.buffer_server_got_socket,current_socket);
 			
@@ -42,9 +40,39 @@ function server_data_reception(buffer_type){
 				//find which client disconnected and remove it from clients list
 				var disconnect_index = ds_list_find_index(self.buffer_server_got_socket,current_socket);
 				if (disconnect_index != -1) {
-					ds_list_delete(self.buffer_server_got_socket,disconnect_index);
+					ds_list_insert(self.buffer_server_got_socket,disconnect_index,-1);
 					
-					ds_list_delete(self.server_already_player_created,disconnect_index);
+					ds_list_insert(self.server_already_player_created,disconnect_index,false);
+					
+					//delete obj connected player that disconnected
+					
+					for(var i = 0; i <= connected_clients; i++) {
+					
+						var current_player = instance_find(obj_connected_player,i);
+						
+						if(current_player != noone) {
+						
+							if(current_player.player_online_id == current_socket) {
+							
+								instance_destroy(current_player);
+								
+								break;
+							
+							}
+						
+						}
+					
+					} 
+					
+					
+					/*for(var i = current_socket; i <= connected_clients; i++) {
+					
+						var current_player = instance_find(obj_connected_player,i);
+						
+						
+					
+					} */
+					
 					
 				}
 				
