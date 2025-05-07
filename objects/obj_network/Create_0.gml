@@ -8,6 +8,8 @@ max_clients = 3;
 
 connected_clients = 0;
 
+last_connected_id = 0;
+
 is_server = false;
 
 socket_type = network_socket_tcp;
@@ -52,6 +54,8 @@ client_already_player_created = ds_list_create();
 
 
 //client variables
+
+ip = "127.0.0.1"
 
 is_client = false;
 

@@ -3,6 +3,8 @@ event_inherited();
 
 //variables
 
+socket = -1; //a connected player will use this to know which client is using it
+
 spd = 4;
 
 current_speed = 0;

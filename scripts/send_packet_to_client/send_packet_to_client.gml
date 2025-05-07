@@ -1,6 +1,7 @@
 function send_packet_to_client(buffer,buffer_data_type,socket){
 
 		buffer_seek(buffer,buffer_seek_start,0); //set pointer to start of buffer
+			
 		
 		buffer_write(buffer,buffer_data_type,self.connected_clients); //tells clients how many clients there are
 		

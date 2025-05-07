@@ -20,7 +20,7 @@ function receive_packet_from_client(buffer,socket){
 	
 	var list_id = client_id - 1; //id to use for list of clients state (since client ids start from 1 but list ids start from 0)
 	
-	if(ds_list_find_value(client_already_player_created,list_id) == false) {
+	if(ds_list_find_value(client_already_player_created,list_id) == false){
 		
 		
 			//show_debug_message(client_id);
@@ -28,7 +28,7 @@ function receive_packet_from_client(buffer,socket){
 			ds_list_insert(client_already_player_created,list_id,true);
 			var new_player = instance_create_layer(obj_player.x,obj_player.y,"Instances",obj_connected_player);
 			new_player.player_online_id = client_id;
-			
+		
 		}
 	
 	//verify which connected player is being changed
