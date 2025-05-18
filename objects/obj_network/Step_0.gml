@@ -10,37 +10,60 @@
 			send_packet_to_client(server_buffer,buffer_data_type,ds_list_find_value(buffer_server_got_socket,i));
 		}
 		
-		//debug
-		/*
-		var cont = 0;
-		
-		for(var i = 0; i < connected_clients; i++) {
-		
-			var found = instance_find(obj_connected_player,i);
-			
-			if(found != noone)
-				show_debug_message(string_concat("id connected player",i + 1,": ",found.player_online_id));
-							
-		} */
-		
-		
-		
-		
 		
 	}
 		
 		
-	//client sending
-	else if (is_client) 
+	//client sending (and detecting server activity)
+	else if (is_client) {
 		send_packet_to_server(client_buffer,buffer_data_type,client_socket);
-	
-
-//debug
-	
-ip = keyboard_string;	
-
-
-	
+		
+		//check if server has stopped sending data
 		
 		
+		if(ranBuffer == ranBuffer_backup)  
+			count_same_buffer++; 
+		else {
+		
+			count_same_buffer = 0;
+			ranBuffer_backup = ranBuffer;
+		}
+		
+		if(count_same_buffer >= 140)
+			server_is_sending_data = false;
+		
+	}
+		
+
+
+//if server stops sending data disconnect client
+
+if(is_client and !server_is_sending_data) { 
+	
+	 show_message("Lost connection to the server.");
+	
+	 obj_player.player_online_id = 0;
+	 
+	 is_client = false;
+	 
+	 network_destroy(client_socket);
+	 
+	 //reset variables for next connection
+	 count_same_buffer = 0;
+	 
+	 server_is_sending_data = true;
+	
+}
+	 
+	 
+if(not(is_client or is_server)) {
+	 
+	for(var i = 0; i < instance_number(obj_connected_player); i++) {
+	 
+		var currConnPlayer = instance_find(obj_connected_player,i);
+	 
+		instance_destroy(currConnPlayer);
+	}
+	 
+}
 		

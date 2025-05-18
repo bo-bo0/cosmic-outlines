@@ -25,6 +25,8 @@ jump_try = false;
 
 player_online_id = 0; //networking
 
+is_gui_open = false;
+
 
 /////animate jump arguments
 

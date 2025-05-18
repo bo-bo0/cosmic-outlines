@@ -1,21 +1,26 @@
-//connect as guest (client)
+if(!is_client and !is_server) {
 
-if (!is_client and !is_server) {
-
-	client_socket = network_create_socket(socket_type); //set client socket
-	var connection = network_connect(client_socket,ip,port); //attempt to connect client
+	if(!instance_exists(obj_default_gui)) {
 	
-	if (connection > -1) {
+		var curr_gui = instance_create_layer(0,0,"Instances",obj_default_gui); 
 	
-		//client connection was succesfull
+		obj_player.is_gui_open = true;
 	
-		is_client = true;
-		client_buffer = buffer_create(client_buffer_size,client_buffer_type,client_buffer_alignment);
-		//show_message("Client connected.");
+		with(curr_gui) {
+	
+			x = 378;
+			y = 96;
+		
+			image_xscale = 9.3;
+		
+			image_yscale = 7.4;
+	
+			depth = -100;
+		
+			online_state = "client";
+	
+		}
 	
 	}
-	else //client connection failed
-		show_message("Connection failed (client).")
-	
 
 }

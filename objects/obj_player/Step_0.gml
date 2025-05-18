@@ -32,7 +32,11 @@ else if (current_speed < 0 and !place_meeting(x - spd,y,par_block))
 else if (current_speed < 0)
 	current_speed = 0; //if collision instantly stop moving
 	
-	
+if (keyboard_check(ord(right_key)) and x > 1262) { current_speed = 0; }
+
+if (keyboard_check(ord(left_key)) and x < -32) { current_speed = 0; }
+
+if (is_gui_open) { current_speed = 0; }
 	
 x += current_speed;	//move player
 

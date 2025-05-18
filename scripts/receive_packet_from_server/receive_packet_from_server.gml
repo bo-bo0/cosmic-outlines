@@ -6,12 +6,18 @@ function receive_packet_from_server(buffer,socket){
 
 	buffer_seek(buffer,buffer_seek_start,0); //set pointer at the start of the buffer
 
+	current_message = buffer_read(buffer,self.buffer_data_type); //random number for server actitvity
+
+	self.ranBuffer = current_message;
+
+		
+		if(self.count_same_buffer == 300) { self.server_is_sending_data = false; }
+
 	//create connected player
 
 	current_message = buffer_read(buffer,self.buffer_data_type); //reads number of connected clients
 	
-	if(obj_player.player_online_id == 0)
-		obj_player.player_online_id = current_message;
+	if(obj_player.player_online_id == 0) { obj_player.player_online_id = current_message; }
 
 	buffer_receive_player(buffer); //creates the connected player (if it wasn't already created)
 	
@@ -37,4 +43,71 @@ function receive_packet_from_server(buffer,socket){
 		with(obj_connected_player) {
 		animate_jump(right_sprite,left_sprite,right_sprite_animated,left_sprite_animated,right_sprite_jump,left_sprite_jump);
 		}
+		
+		
+		
+		
+		
+		
+		////////////////////managing of other clients string:
+		
+		var main_ds_list = ds_list_create();
+
+		current_message = buffer_read(buffer,self.buffer_data_type); //read how many other clients there are
+
+		for(var i = 0; i < current_message; i++) {
+		
+			var current_dslist_string = buffer_read(buffer,buffer_string);
+			var sub_list = ds_list_create();
+			//list read
+			
+			var par_counter = 0; //counts to what parameter it's arrived
+			var phS = "";
+			
+			
+			for(var j = 1; j <= string_length(current_dslist_string); j++) {
+			
+				if(string_char_at(current_dslist_string,j) != "," and string_char_at(current_dslist_string,j) != "") {
+				
+					phS += string_char_at(current_dslist_string,j)
+				
+				}
+				
+				else if(phS != "") {
+				
+					if(par_counter != 1) 
+						ds_list_add(sub_list,real(phS));
+					
+					
+					else 
+						ds_list_add(sub_list,bool(phS));
+						
+			
+					par_counter++;
+					phS = "";
+
+				}
+				
+				else 
+					break;
+			
+			}
+			
+			/////
+			ds_list_add(main_ds_list,sub_list);
+			ds_list_mark_as_list(main_ds_list,ds_list_size(main_ds_list) - 1);
+			
+			//show_message(ds_list_size(list_find_not_und(main_ds_list,0)));
+			//show_message(current_dslist_string);
+			//show_debug_message("last x: " + string(list_find_not_und(list_find_not_und(main_ds_list,ds_list_size(main_ds_list) - 1),2)));
+			manage_clients_on_client_side(main_ds_list);
+		}
+		//show_debug_message(ds_list_size(main_ds_list));
+		
+		//show_debug_message("last x: " + string(list_find_not_und(list_find_not_und(main_ds_list,ds_list_size(main_ds_list) - 1),2)));
+		
+		//manage_clients_on_client_side(main_ds_list); //manage other clients on this one
+		
+		ds_list_destroy(main_ds_list); //erase local list when finished
 }
+
