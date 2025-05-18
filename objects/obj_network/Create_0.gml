@@ -1,10 +1,11 @@
 buffer_data_type = buffer_f32; //huge buffer for better precision with coordinates
 
+
 //server variables
 
 port = 50326;
 
-max_clients = 3;
+max_clients = 0;
 
 connected_clients = 0;
 
@@ -48,9 +49,14 @@ server_already_player_created = ds_list_create();
 client_already_player_created = ds_list_create();
 
 
+//list containing all the data of each client in each element/position
+stored_clients_data = ds_list_create();
 
 
-
+	//json buffer variables
+	json_buffer_data_type = buffer_string;
+	
+	json_server_buffer = 0;
 
 
 //client variables
@@ -60,6 +66,14 @@ ip = "127.0.0.1"
 is_client = false;
 
 client_socket = -1;
+
+server_is_sending_data = true;
+
+ranBuffer = 0;
+
+ranBuffer_backup = 0;
+
+count_same_buffer = 0;
 
 	//client buffer variables
 	
@@ -79,3 +93,4 @@ client_socket = -1;
 		//of course this will always be the server socket, this is only needed for compatibility
 	buffer_client_got_socket = 0; 
 	
+randomize();

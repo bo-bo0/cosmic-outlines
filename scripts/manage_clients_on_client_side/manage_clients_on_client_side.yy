@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"manage_clients_on_client_side",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"manage_clients_on_client_side",
+  "parent":{
+    "name":"networking",
+    "path":"folders/Scripts/networking.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"list_find_not_und",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"list_find_not_und",
+  "parent":{
+    "name":"lists",
+    "path":"folders/Scripts/lists.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

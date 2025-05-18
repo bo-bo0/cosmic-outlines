@@ -4,7 +4,6 @@ function send_packet_to_server(buffer,buffer_data_type,socket){
 		
 		buffer_write(buffer,buffer_data_type,obj_player.player_online_id); //send id of client which is operating to server
 		
-		//buffer_send_player(buffer);
 		
 		//send movement
 		

@@ -1,18 +1,26 @@
-//connect as host (server)
+if(!is_client and !is_server) {
 
-if (!is_client and !is_server) {
+	if(!instance_exists(obj_default_gui)) {
 	
-	server_socket = network_create_server(socket_type,port,max_clients); //attempt to create server
+		var curr_gui = instance_create_layer(0,0,"Instances",obj_default_gui); 
 	
-	if (server_socket > -1) {
+		obj_player.is_gui_open = true;
+	
+		with(curr_gui) {
+	
+			x = 378;
+			y = 96;
 		
-		//server creation was succesfull
+			image_xscale = 9.3;
 		
-		is_server = true;
-		server_buffer = buffer_create(server_buffer_size,server_buffer_type,server_buffer_alignment);
-		show_message("Server connected.");
+			image_yscale = 7.4;
+	
+			depth = -100;
 		
+			online_state = "server";
+	
+		}
+	
 	}
-	else //server creation failed
-		show_message("Connection failed (server).");
+
 }

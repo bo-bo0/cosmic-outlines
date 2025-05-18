@@ -17,15 +17,16 @@ function server_data_reception(buffer_type){
 				self.connected_clients++;
 				
 				 //save client socket in the list		
-				ds_list_add(self.buffer_server_got_socket,current_socket);
-			
+				ds_list_insert(self.buffer_server_got_socket,current_socket - 1,current_socket);
+				
 				//remember in this client there is no server player
-				ds_list_add(self.server_already_player_created,false);
+				ds_list_insert(self.server_already_player_created,current_socket - 1,false);
 				
 				//remember in the server there is no player for this client
-				ds_list_add(self.client_already_player_created,false);
-			
-				show_message(string_concat("Player"," joined the game."));
+				ds_list_insert(self.client_already_player_created,current_socket - 1,false);
+				
+				show_message_async(string_concat("Player ",current_socket," joined the game."));
+				
 			
 			break;
 			}
@@ -40,9 +41,11 @@ function server_data_reception(buffer_type){
 				//find which client disconnected and remove it from clients list
 				var disconnect_index = ds_list_find_index(self.buffer_server_got_socket,current_socket);
 				if (disconnect_index != -1) {
-					ds_list_insert(self.buffer_server_got_socket,disconnect_index,-1);
 					
-					ds_list_insert(self.server_already_player_created,disconnect_index,false);
+					ds_list_delete(self.buffer_server_got_socket,disconnect_index);
+					ds_list_delete(self.server_already_player_created,disconnect_index);
+					
+					ds_list_delete(self.client_already_player_created,disconnect_index);
 					
 					//delete obj connected player that disconnected
 					
@@ -54,6 +57,8 @@ function server_data_reception(buffer_type){
 						
 							if(current_player.player_online_id == current_socket) {
 							
+								show_message_async(string_concat("Player ",current_player.player_online_id," left the game."));
+							
 								instance_destroy(current_player);
 								
 								break;
@@ -64,19 +69,8 @@ function server_data_reception(buffer_type){
 					
 					} 
 					
-					
-					/*for(var i = current_socket; i <= connected_clients; i++) {
-					
-						var current_player = instance_find(obj_connected_player,i);
-						
-						
-					
-					} */
-					
-					
 				}
 				
-				show_message(string_concat("Player"," left the game."));
 				
 			break;
 			}
@@ -93,9 +87,7 @@ function server_data_reception(buffer_type){
 			
 			break;
 			}
-	
-	
-	
+			
 	}
 
 }
