@@ -58,6 +58,14 @@ function receive_packet_from_server(buffer,socket){
 		for(var i = 0; i < current_message; i++) {
 		
 			var current_dslist_string = buffer_read(buffer,buffer_string);
+			
+			//fix initial comma bug
+			if(string_char_at(current_dslist_string,0) == ",") 
+				current_dslist_string = string_copy(current_dslist_string,2,string_length(current_dslist_string) - 1);
+				
+			////////
+			show_debug_message(current_dslist_string);
+			
 			var sub_list = ds_list_create();
 			//list read
 			
@@ -82,9 +90,11 @@ function receive_packet_from_server(buffer,socket){
 					else 
 						ds_list_add(sub_list,bool(phS));
 						
+					//if(par_counter == 0)show_debug_message("last id received: "+ string(phS));
 			
 					par_counter++;
 					phS = "";
+					
 
 				}
 				
@@ -93,20 +103,13 @@ function receive_packet_from_server(buffer,socket){
 			
 			}
 			
-			/////
+			///////////////////////finalize
+			
 			ds_list_add(main_ds_list,sub_list);
 			ds_list_mark_as_list(main_ds_list,ds_list_size(main_ds_list) - 1);
 			
-			//show_message(ds_list_size(list_find_not_und(main_ds_list,0)));
-			//show_message(current_dslist_string);
-			//show_debug_message("last x: " + string(list_find_not_und(list_find_not_und(main_ds_list,ds_list_size(main_ds_list) - 1),2)));
 			manage_clients_on_client_side(main_ds_list);
 		}
-		//show_debug_message(ds_list_size(main_ds_list));
-		
-		//show_debug_message("last x: " + string(list_find_not_und(list_find_not_und(main_ds_list,ds_list_size(main_ds_list) - 1),2)));
-		
-		//manage_clients_on_client_side(main_ds_list); //manage other clients on this one
 		
 		ds_list_destroy(main_ds_list); //erase local list when finished
 }
