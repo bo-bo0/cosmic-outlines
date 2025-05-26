@@ -69,15 +69,20 @@ function manage_clients_on_client_side(clients_data_list){
 							//show_message(list_find_not_und(current_list,clientDatai.Id));
 							//show_message(list_find_not_und(current_list,clientDatai.X));
 							//show_message(list_find_not_und(current_list,clientDatai.IsJumping));
-							player_online_id = list_find_not_und(current_list,clientDatai.Id);
+							var ID = list_find_not_und(current_list,clientDatai.Id);
+							
+							if(ID != noone) {
+							
+								player_online_id = ID;
 					
-							x = list_find_not_und(current_list,clientDatai.X); 
-							y = list_find_not_und(current_list,clientDatai.Y);
-							current_speed = list_find_not_und(current_list,clientDatai.Speed);
+								x = list_find_not_und(current_list,clientDatai.X); 
+								y = list_find_not_und(current_list,clientDatai.Y);
+								current_speed = list_find_not_und(current_list,clientDatai.Speed);
 				
-							if(list_find_not_und(current_list,clientDatai.IsJumping) == jumpState.isJumping)
-								animate_jump(right_sprite,left_sprite,right_sprite_animated,left_sprite_animated,right_sprite_jump,left_sprite_jump);
+								if(list_find_not_und(current_list,clientDatai.IsJumping) == jumpState.isJumping)
+									animate_jump(right_sprite,left_sprite,right_sprite_animated,left_sprite_animated,right_sprite_jump,left_sprite_jump);
 			
+							}
 						}
 		
 					}
