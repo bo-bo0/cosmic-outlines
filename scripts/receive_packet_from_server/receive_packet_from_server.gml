@@ -57,10 +57,20 @@ function receive_packet_from_server(buffer,socket){
 
 		for(var i = 0; i < current_message; i++) {
 		
+			//show_debug_message(" buffer_pos = " + string(buffer_tell(buffer)));
+			
+			var buffer_pos = buffer_tell(buffer);
 			var current_dslist_string = buffer_read(buffer,buffer_string);
+			//buffer_seek(buffer,buffer_pos + 20,0);
+			
+			//show_debug_message(" buffer_pos = " + string(buffer_tell(buffer)));
 			
 			//fix initial comma bug
-			if(string_char_at(current_dslist_string,0) == ",") 
+			if(string_char_at(current_dslist_string,1) == ",") 
+				current_dslist_string = string_copy(current_dslist_string,2,string_length(current_dslist_string) - 1);
+				
+			//fix iitial previous buffer sniff
+			if(string_char_at(current_dslist_string,2) != ",")
 				current_dslist_string = string_copy(current_dslist_string,2,string_length(current_dslist_string) - 1);
 				
 			////////
@@ -75,7 +85,7 @@ function receive_packet_from_server(buffer,socket){
 			
 			for(var j = 1; j <= string_length(current_dslist_string); j++) {
 			
-				if(string_char_at(current_dslist_string,j) != "," and string_char_at(current_dslist_string,j) != "") {
+				if(string_char_at(current_dslist_string,j) != ",") {
 				
 					phS += string_char_at(current_dslist_string,j)
 				
