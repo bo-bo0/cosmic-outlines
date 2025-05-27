@@ -56,11 +56,19 @@ function send_packet_to_client(buffer,buffer_data_type,socket){
 			var dslist_string = "";	
 			
 			for (var j = 0; j < ds_list_size(actual_sub_list); j++) {
-				dslist_string += string(ds_list_find_value(actual_sub_list,j));
+
+					dslist_string += string(ds_list_find_value(actual_sub_list,j));
 				
 				if(j == 0)show_debug_message("last id sent: " + string(dslist_string));
 				
 				if (j < ds_list_size(actual_sub_list)) { dslist_string += ","; }
+			}
+			
+			var dim = string_length(dslist_string)
+			if(dim < 64) 
+			{
+				for(var s = dim; s <= 64; s++)
+					dslist_string += "-";
 			}
 
 			//show_message(ds_list_size(actual_sub_list));
