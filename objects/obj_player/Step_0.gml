@@ -59,10 +59,3 @@ if(keyboard_check_pressed(jump_key))  {
 if (jump_try and place_meeting(x,y+1,par_block)) 
 	jump_activate();
 	
-	
-	
-
-
-//debug
-
-debug_key(player_online_id,"R");

@@ -27,6 +27,8 @@ function send_packet_to_client(buffer,buffer_data_type,socket){
 		
 		buffer_write(buffer,buffer_data_type,sentID); //tells clients what id they have
 		
+		buffer_write(buffer,buffer_data_type,self.disconnected_client); //tells clients who disconnected
+		
 		buffer_send_player(buffer);
 		
 		//send movement
@@ -47,6 +49,7 @@ function send_packet_to_client(buffer,buffer_data_type,socket){
 		//send size (how many clients)
 		buffer_write(buffer,buffer_data_type,ds_list_size(self.stored_clients_data));
 		
+		
 		//convert lists to strings to send them
 		
 		for(var i = 0; i < ds_list_size(self.stored_clients_data); i++) {
@@ -59,20 +62,18 @@ function send_packet_to_client(buffer,buffer_data_type,socket){
 
 					dslist_string += string(ds_list_find_value(actual_sub_list,j));
 				
-				if(j == 0)show_debug_message("last id sent: " + string(dslist_string));
-				
 				if (j < ds_list_size(actual_sub_list)) { dslist_string += ","; }
 			}
 			
+			
+			//"redundant string" fix to "wandering pointer" bug
 			var dim = string_length(dslist_string)
 			if(dim < 64) 
 			{
 				for(var s = dim; s <= 64; s++)
 					dslist_string += "-";
 			}
-
-			//show_message(ds_list_size(actual_sub_list));
-			//show_message(dslist_string);
+			///////
 			
 			buffer_write(buffer,buffer_string,dslist_string); //send each dslist string
 			

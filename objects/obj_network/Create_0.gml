@@ -19,7 +19,7 @@ server_socket = -1;
 
 current_server_target_socket_index = 0;
 
-
+disconnected_client = 0;
 
 	//server buffer variables
 	
@@ -51,12 +51,6 @@ client_already_player_created = ds_list_create();
 
 //list containing all the data of each client in each element/position
 stored_clients_data = ds_list_create();
-
-
-	//json buffer variables
-	json_buffer_data_type = buffer_string;
-	
-	json_server_buffer = 0;
 
 
 //client variables

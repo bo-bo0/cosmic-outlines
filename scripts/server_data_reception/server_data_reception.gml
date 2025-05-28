@@ -42,10 +42,14 @@ function server_data_reception(buffer_type){
 				var disconnect_index = ds_list_find_index(self.buffer_server_got_socket,current_socket);
 				if (disconnect_index != -1) {
 					
+					self.disconnected_client = disconnect_index + 1; //remember who disconnected to tell other clients
+					
 					ds_list_delete(self.buffer_server_got_socket,disconnect_index);
 					ds_list_delete(self.server_already_player_created,disconnect_index);
 					
 					ds_list_delete(self.client_already_player_created,disconnect_index);
+					
+					ds_list_delete(self.stored_clients_data,disconnect_index);
 					
 					//delete obj connected player that disconnected
 					
@@ -72,7 +76,7 @@ function server_data_reception(buffer_type){
 				}
 				
 				
-			break;
+				break;
 			}
 			
 			//client sent data
@@ -81,11 +85,11 @@ function server_data_reception(buffer_type){
 		
 			{
 			
-			self.buffer_server_got = ds_map_find_value(async_load,"buffer");
+				self.buffer_server_got = ds_map_find_value(async_load,"buffer");
 			
-			receive_packet_from_client(self.buffer_server_got,current_socket);
+				receive_packet_from_client(self.buffer_server_got,current_socket);
 			
-			break;
+				break;
 			}
 			
 	}

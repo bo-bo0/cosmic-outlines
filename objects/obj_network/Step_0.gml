@@ -9,7 +9,7 @@
 			current_server_target_socket_index = i;
 			send_packet_to_client(server_buffer,buffer_data_type,ds_list_find_value(buffer_server_got_socket,i));
 		}
-		
+		disconnected_client = 0;
 		
 	}
 		
@@ -66,4 +66,22 @@ if(not(is_client or is_server)) {
 	}
 	 
 }
+
+//remove disconnected client from other clients
+
+if(is_client) {
+	if(disconnected_client != 0) {
+		for(var j = 0; j < instance_number(obj_connected_player); j++) {
 		
+			var curr = instance_find(obj_connected_player,j);
+			
+			if(curr.player_online_id == disconnected_client) {
+			
+				instance_destroy(curr); 
+				break;
+			
+			}
+		
+		}
+	}
+}

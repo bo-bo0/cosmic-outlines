@@ -54,7 +54,6 @@
     {"id":{"name":"obj_connected_player","path":"objects/obj_connected_player/obj_connected_player.yy",},},
     {"id":{"name":"obj_default_gui","path":"objects/obj_default_gui/obj_default_gui.yy",},},
     {"id":{"name":"obj_floor_test","path":"objects/obj_floor_test/obj_floor_test.yy",},},
-    {"id":{"name":"obj_network_test","path":"objects/obj_network_test/obj_network_test.yy",},},
     {"id":{"name":"obj_network","path":"objects/obj_network/obj_network.yy",},},
     {"id":{"name":"obj_outside_inputs","path":"objects/obj_outside_inputs/obj_outside_inputs.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
