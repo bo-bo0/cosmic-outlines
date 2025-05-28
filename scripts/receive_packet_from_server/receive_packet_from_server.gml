@@ -13,11 +13,13 @@ function receive_packet_from_server(buffer,socket){
 		
 		if(self.count_same_buffer == 300) { self.server_is_sending_data = false; }
 
-	//create connected player
-
-	current_message = buffer_read(buffer,self.buffer_data_type); //reads number of connected clients
+	current_message = buffer_read(buffer,self.buffer_data_type); //reads id
 	
 	if(obj_player.player_online_id == 0) { obj_player.player_online_id = current_message; }
+
+	current_message = buffer_read(buffer,self.buffer_data_type); //reads what client disconnected
+	self.disconnected_client = current_message;
+	//deletes disconnected client
 
 	buffer_receive_player(buffer); //creates the connected player (if it wasn't already created)
 	
@@ -45,25 +47,18 @@ function receive_packet_from_server(buffer,socket){
 		}
 		
 		
-		
-		
-		
-		
 		////////////////////managing of other clients string:
 		
 		var main_ds_list = ds_list_create();
 
 		current_message = buffer_read(buffer,self.buffer_data_type); //read how many other clients there are
-
+		
 		for(var i = 0; i < current_message; i++) {
 		
-			//show_debug_message(" buffer_pos = " + string(buffer_tell(buffer)));
 			
 			var buffer_pos = buffer_tell(buffer);
 			var current_dslist_string = buffer_read(buffer,buffer_string);
-			//buffer_seek(buffer,buffer_pos + 20,0);
-			
-			//show_debug_message(" buffer_pos = " + string(buffer_tell(buffer)));
+
 			
 			//fix initial comma bug
 			if(string_char_at(current_dslist_string,1) == ",") 
@@ -73,8 +68,6 @@ function receive_packet_from_server(buffer,socket){
 			if(string_char_at(current_dslist_string,2) != ",")
 				current_dslist_string = string_copy(current_dslist_string,2,string_length(current_dslist_string) - 1);
 				
-			////////
-			show_debug_message(current_dslist_string);
 			
 			var sub_list = ds_list_create();
 			//list read
@@ -99,8 +92,6 @@ function receive_packet_from_server(buffer,socket){
 					
 					else 
 						ds_list_add(sub_list,bool(phS));
-						
-					//if(par_counter == 0)show_debug_message("last id received: "+ string(phS));
 			
 					par_counter++;
 					phS = "";

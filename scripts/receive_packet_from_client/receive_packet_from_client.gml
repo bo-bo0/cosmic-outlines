@@ -96,6 +96,7 @@ function receive_packet_from_client(buffer,socket){
 				ds_list_replace(self.stored_clients_data,client_id - 1,client_data); //insert data of current client in main clients list
 			else 
 				ds_list_add(self.stored_clients_data,client_data);
+			
 		}
 }
 

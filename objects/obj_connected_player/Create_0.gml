@@ -19,7 +19,6 @@ jump_try = false;
 
 player_online_id = 0; //networking
 
-
 /////animate jump arguments
 
 right_sprite = spr_playerRight;
@@ -40,3 +39,5 @@ left_sprite_jump = spr_player_jumpLeft;
 
 image_xscale = 3;
 image_yscale = 3;
+
+
