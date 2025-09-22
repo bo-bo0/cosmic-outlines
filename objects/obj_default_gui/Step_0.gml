@@ -10,13 +10,29 @@ if(!loading) {
 			keyboard_lastchar = "";
 		}
 
-		text_inserted = string_digits(keyboard_string)
+		var input = keyboard_string;
+		var output = "";
 
-		keyboard_string = string_digits(keyboard_string)
+		for (var i = 1; i <= string_length(input); i++) {
+		    var ch = string_char_at(input, i);
+    
+		    if (ch >= "0" and ch <= "9") {
+		        output += ch;
+		    } 
+			else if (ch == ".") {
+
+		        output += ch;
+		    }
+		}
+
+		keyboard_string = output;
+		text_inserted = output;
+		
+	
 
 		var max_size = 0;
 
-		if(online_state == "client") { max_size = 11; } else { max_size = 3; }
+		if(online_state == "client") { max_size = 15; } else { max_size = 3; }
 
 		if(string_length(text_inserted) > max_size) {
 
@@ -28,18 +44,6 @@ if(!loading) {
 		else 
 			actual_online_ip = text_inserted;
 	
-		//dots insertion in ip
-		var i = 3;
-
-		while(i <= 10) {
-
-			if(string_length(actual_online_ip) >= i + 1 and string_char_at(actual_online_ip,i + 1) != ".")
-				actual_online_ip = string_insert(".",actual_online_ip,i + 1);
-		
-			if(i == 3) { i += 4; } else { i += 3; }
-		
-		
-		}
 
 	}
 
